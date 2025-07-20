@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adoiz Shop</title>
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4ff;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  header {
+    background: #0b5ed7;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    border-radius: 12px;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(11,94,215,0.5);
+  }
+  main {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+  main img.dog-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  ul.pet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.pet-list li {
+    font-size: 1.3rem;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e0e7ff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #0b5ed7;
+    font-weight: 700;
+    background: #f8fbff;
+    transition: background-color 0.25s;
+    user-select: none;
+    position: relative;
+  }
+  ul.pet-list li:hover {
+    background-color: #d4e4ff;
+  }
+  .price {
+    color: #444;
+    font-weight: 700;
+    min-width: 90px;
+    text-align: right;
+    visibility: hidden;
+    transition: visibility 0.3s, opacity 0.3s ease-in-out;
+    opacity: 0;
+  }
+  ul.pet-list li.active .price {
+    visibility: visible;
+    opacity: 1;
+  }
+  .disco-message {
+    font-size: 0.9rem;
+    color: #0b5ed7;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .topup-section {
+    margin: 25px 0;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  .topup-section button {
+    background: #0b5ed7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 14px 32px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(11,94,215,0.5);
+    transition: background-color 0.3s;
+    user-select: none;
+  }
+  .topup-section button:hover {
+    background: #0845b5;
+  }
+  .topup-section p {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #555;
+  }
+  .giveaway-section {
+    background: #e7f0ff;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px 0 40px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(11,94,215,0.2);
+    text-align: center;
+  }
+  .giveaway-section button {
+    background: #0b5ed7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 12px 28px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(11,94,215,0.5);
+    transition: background-color 0.3s;
+    user-select: none;
+    margin-top: 10px;
+  }
+  .giveaway-section button:hover {
+    background: #0845b5;
+  }
+  .giveaway-input {
+    margin-top: 15px;
+    display: none;
+  }
+  .giveaway-input input {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 2px solid #0b5ed7;
+    outline: none;
+    width: 60%;
+    max-width: 300px;
+  }
+  .giveaway-input button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background: #0b5ed7;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(11,94,215,0.5);
+    transition: background-color 0.3s;
+    user-select: none;
+  }
+  .giveaway-input button:hover {
+    background: #0845b5;
+  }
+  .giveaway-success {
+    margin-top: 15px;
+    font-weight: 700;
+    color: green;
+  }
+  footer {
+    max-width: 600px;
+    width: 100%;
+    margin-top: 40px;
+    padding: 15px 20px;
+    background: #0b5ed7;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(11,94,215,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    user-select: none;
+  }
+  footer a {
+    color: #ffd95b;
+    text-decoration: none;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+  .emoji {
+    font-size: 1.3rem;
+    margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+
+<header>🌺🇳🇵 Welcome to Adoiz Shop 🇳🇵🌺</header>
+
+<main>
+  <img
+    class="dog-image"
+    src="https://cdn.ekinum.com/assets/img/header-dog-face.png"
+    alt="Dog face"
+  />
+
+  <ul class="pet-list" id="petList">
+    <li>774T <span class="price">Rs 100</span></li>
+    <li>Cooked Owl <span class="price">Rs 100</span></li>
+    <li>Blood Owl <span class="price">Rs 100</span></li>
+    <li>Night Owl <span class="price">Rs 100</span></li>
+    <li>Moon Cat <span class="price">Rs 100</span></li>
+    <li>Moth <span class="price">Rs 100</span></li>
+    <li>Praying Mantis <span class="price">Rs 100</span></li>
+    <li>Turtle <span class="price">Rs 100</span></li>
+    <li>Bear Bee <span class="price">Rs 100</span></li>
+    <li>Scarlet Macow <span class="price">Rs 100</span></li>
+    <li>Capybara <span class="price">Rs 150</span></li>
+    <li>Red Fox <span class="price">Rs 200</span></li>
+    <li>Chicken Zombie <span class="price">Rs 200</span></li>
+    <li>Queen Bee <span class="price">Rs 350</span></li>
+    <li>Raccoon <span class="price">Rs 900</span></li>
+    <li>Dragonfly <span class="price">Rs 600</span></li>
+    <li id="discoBee">Disco Bee <span class="price">Rs 850</span></li>
+    <div class="disco-message" id="discoMessage" style="display:none;">
+      Mr Adoiz is nice he gave you all 10 tokens ok
+    </div>
+    <li>Butterfly <span class="price">Rs 650</span></li>
+    <li>Mimic Octopus <span class="price">Rs 450</span></li>
+    <li>Fenec Fox <span class="price">Rs 1200</span></li>
+    <li>Trex <span class="price">Rs 750</span></li>
+    <li>Brono <span class="price">Rs 300</span></li>
+  </ul>
+</main>
+
+<div class="topup-section">
+  <button id="topUpBtn">Robux Top Up (Max 100,000)</button>
+  <p>If you want to ask price, contact us on TikTok 👉 <a href="https://www.tiktok.com/@adiozshop" target="_blank" rel="noopener noreferrer">@adiozshop</a></p>
+</div>
+
+<div class="giveaway-section">
+  <h2>🎉 Giveaway</h2>
+  <button id="buyJoinBtn">Buy to Join (1 Token)</button>
+
+  <div class="giveaway-input" id="giveawayInputSection">
+    <input type="text" id="usernameInput" placeholder="Enter your username" />
+    <button id="joinGiveawayBtn">Join Giveaway</button>
+  </div>
+
+  <div class="giveaway-success" id="giveawaySuccess" style="display:none;"></div>
+</div>
+
+<footer>
+  <div><span class="emoji">🌺</span> Rhododendron</div>
+  <div><span class="emoji">🇳🇵</span> Nepal</div>
+  <div>Contact us on WhatsApp: <a href="https://wa.me/9779805178563" target="_blank" rel="noopener noreferrer">+977 980-5178563</a></div>
+  <div>Join our Discord: <a href="https://discord.com/invite/DxGT4jUwBT" target="_blank" rel="noopener noreferrer">Discord Link</a></div>
+</footer>
+
+<script>
+  // Toggle price visibility for pets on click
+  const petList = document.getElementById('petList');
+  const discoBee = document.getElementById('discoBee');
+  const discoMessage = document.getElementById('discoMessage');
+
+  petList.addEventListener('click', e => {
+    const li = e.target.closest('li');
+    if (!li) return;
+
+    li.classList.toggle('active');
+
+    // Special message for Disco Bee if active
+    if (li === discoBee) {
+      if (li.classList.contains('active')) {
+        discoMessage.style.display = 'block';
+      } else {
+        discoMessage.style.display = 'none';
+      }
+    }
+  });
+
+  // Robux Top Up button logic
+  const topUpBtn = document.getElementById('topUpBtn');
+  topUpBtn.addEventListener('click', () => {
+    let amount = prompt("Enter Robux amount to top up (max 100,000):", "");
+    if (amount === null) return;
+
+    amount = amount.replace(/\D/g,'');
+
+    if (!amount || Number(amount) <= 0) {
+      alert("Please enter a valid positive number.");
+      return;
+    }
+
+    if (Number(amount) > 100000) {
+      alert("Sorry, maximum top up is 100,000 Robux.");
+      return;
+    }
+
+    alert(`Successfully requested top up of ${amount} Robux!`);
+  });
+
+  // Giveaway section logic
+  const buyJoinBtn = document.getElementById('buyJoinBtn');
+  const giveawayInputSection = document.getElementById('giveawayInputSection');
+  const joinGiveawayBtn = document.getElementById('joinGiveawayBtn');
+  const giveawaySuccess = document.getElementById('giveawaySuccess');
+
+  buyJoinBtn.addEventListener('click', () => {
+    // Simulate buying with 1 token - in real site you'd check balance etc
+    buyJoinBtn.style.display = 'none';
+    giveawayInputSection.style.display = 'block';
+  });
+
+  joinGiveawayBtn.addEventListener('click', () => {
+    const usernameInput = document.getElementById('usernameInput');
+    const username = usernameInput.value.trim();
+
+    if (username === '') {
+      alert('Please enter your username to join the giveaway.');
+      return;
+    }
+
+    giveawayInputSection.style.display = 'none';
+    giveawaySuccess.style.display = 'block';
+    giveawaySuccess.textContent = `You have joined the giveaway as "${username}"! 🎉`;
+  });
+</script>
+
+</body>
+</html>
